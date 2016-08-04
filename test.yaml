@@ -1,0 +1,68 @@
+step1:
+  # <details> is a predetermined keyword of level 2
+  details:
+    # details.<ordinal> is a predetermined keyword of level 3
+    ordinal: 1 # Used to define order to run the steps
+    # details.<title> is a predetermined keyword of level 3
+    title: "create_retailer" # Arbitrary Title for this step
+    # details.<entry_point> is a predetermined keyword of level 3
+    entry_point: "/retailer/create"
+    # details.<confirm_output> is a predetermined keyword of level 3
+    confirm_output: True # if True, every step will print out it's request 
+                         # output to console 
+  # <data> is a predetermined keyword of level 2
+  data:
+    accountId: 2547109
+    name: "Headquarters"
+    streetAddress: "1000 sw Atlantic Ave."
+    city: "Pompano Beach"
+    state: "FL"
+    postalCode: "33033"
+    businessPhone: "1231231233"
+  
+
+step2:
+  details:
+    
+    ordinal: 2
+    title: "create_retailer_location"
+    entry_point: "/retailer/location/create"
+    confirm_output: True
+
+  data:
+    accountId: 2547109
+    name: "Headquarters"
+    streetAddress: "1000 sw Atlantic Ave."
+    city: "Pompano Beach"
+    state: "FL"
+    postalCode: "33033"
+    retailerId: 
+  
+
+  # dependencies: tells what to grab from the previews step's output 
+  # dictionary as input for this step as well as to wath would that value be 
+  # assigned in this step's "data"
+  # Examples:
+    # Case 1
+    # In an output dict {'a':1, 'b':2} to grab value of 'a' and assign it to
+    # 'first_letter' on an instance of 'data', dependencies would look like:
+      # dependencies: ["a", "first_letter"]
+
+    # Case 2
+    # In an output dict {'a':{'b':2}} (note that there is a nested dict) to 
+    # grab value of 'b' and assign it to 'second_letter' on an instance of 
+    # 'data', dependencies would look like:
+      # dependencies: ["a", "b", second_letter"]
+      # (Note that the key to be assigned in this step's "data" is last)
+  # Important!
+  # dependencies supports onli one dependency for the time beeing
+  dependencies: ["item", "retailerId", "retailerId"]
+
+# <assert> is a predetermined keyword of level 1
+assert: 
+  # assert.<key> is a predetermined keyword of level 2
+  key: "valid"
+  # assert.<value> is a predetermined keyword of level 2
+  value: True
+  # assert.<on_error_key> is a predetermined keyword of level 2
+  on_error_key: "message"

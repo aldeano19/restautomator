@@ -1,0 +1,16 @@
+step1:
+  details:
+    ordinal: 1
+    title: "create_location"
+    entry_point: "/location/create"
+    confirm_output: True
+
+  data:
+    accountId: 2547109
+    appKey: "6bebe7eba601b1fdc47e5995e3b9a181"
+    name: "Headquarters"
+
+assert:
+  key: "valid"
+  value: True
+  on_error_key: message

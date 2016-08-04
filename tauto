@@ -1,0 +1,145 @@
+#!/usr/bin/python
+import yaml
+import sys
+import requests
+import json
+
+
+def get_item_from_dict(m_dict, tree_list):
+    real_length = len(tree_list) - 1
+    if real_length == 1:
+        return m_dict[tree_list[0]]
+    elif real_length == 2:
+        return m_dict[tree_list[0]][tree_list[1]]
+    elif real_length == 3:
+        return m_dict[tree_list[0]][tree_list[1]][tree_list[2]]
+    elif real_length == 4:
+        return m_dict[tree_list[0]][tree_list[1]][tree_list[2]][tree_list[3]]
+    else:
+        raise Exception("The Next step depends in a 5th level variable, wich is not supported.")
+
+class Step(object):
+    """docstring for Step"""
+    def __init__(self, url, headers, data, ordinal, dependencies=None, confirm_output=False):
+
+        self.url = url
+        self.headers = headers
+        self.data = data
+        self.ordinal = ordinal
+
+        self.dependencies = dependencies
+        self.confirm_output = confirm_output
+
+    def execute(self, input_dict):
+        # print self.dependencies
+        if self.dependencies != None:
+            # print self.dependencies
+            self.data[self.dependencies[-1]] = get_item_from_dict(input_dict, self.dependencies)
+
+            # print "===="
+            # print self.data
+            # print "===="
+                
+        response = requests.post(self.url, data=self.data, headers=self.headers, verify=False)
+
+        return json.loads(response.content)
+    
+class Restautomator(object):
+    def __init__(self):
+        self.GLOBAL_YAML = "global.yaml"        
+        self.yaml_file = sys.argv[1]
+
+        self.steps = []
+
+        self.assert_key = None # what key to look for to assert on output_dict
+        self.assert_value = None # what value to expect from output_dict[self.assert_key]
+        self.on_assert_error_key = None # what key to grab from out dict if error
+
+    def load(self):
+        # load Global YAML
+        with open(self.GLOBAL_YAML, "r") as yaml_global:
+            contents = yaml.load(yaml_global)
+
+        base_url = contents["base_url"]
+        headers = contents["headers"]
+        data = contents["data"]
+
+        # load Custom YAML
+        with open(self.yaml_file, "r") as yaml_custom:
+            contents = yaml.load(yaml_custom)
+
+        self.assert_key = contents["assert"]["key"]
+        self.assert_value = contents["assert"]["value"]
+
+        for step in contents:
+            if step == "assert":
+                continue
+
+            url = base_url + contents[step]["details"]["entry_point"]
+            ordinal = contents[step]["details"]["ordinal"]
+            data.update(contents[step]["data"])
+            
+            dependencies = None
+
+            if "dependencies" in contents[step]:
+                dependencies = contents[step]["dependencies"]
+
+            if "headers" in contents[step]:
+                headers.update(contents[step]["headers"])
+
+            confirm_output = False
+            if "confirm_output" in contents[step]["details"]:
+                confirm_output = contents[step]["details"]["confirm_output"]
+
+            self.steps.append(Step(url, headers, data, ordinal, dependencies, confirm_output))
+    
+    # def order(self):
+    def sort(self):
+        for i in range(1,len(self.steps)):    
+            j = i
+            while j > 0 and self.steps[j].ordinal < self.steps[j-1].ordinal:
+                self.steps[j], self.steps[j-1] = self.steps[j-1], self.steps[j]
+                j-=1 
+
+    def perform(self, step_index, input_dict):
+        # print "CHK1"
+        if step_index >= len(self.steps):
+            # print "CHK2"
+            return input_dict
+        else:
+            # print "CHK3"
+            try:
+                output = self.steps[step_index].execute(input_dict)
+            except Exception, e:
+                return input_dict
+
+            # print "CHK4"
+            if self.steps[step_index].confirm_output:
+                self.confirm_current_step_output(self.steps[step_index], output)
+            # else:
+            #     print "Not confirming output"
+
+            return self.perform(step_index+1, output)
+    
+    def confirm_current_step_output(self, Step, output):
+        print "OUTPUT for Step # %s in sequence: \n\t%s" % (Step.ordinal, output)
+
+    def check_output(self, output):
+        if output[self.assert_key] == self.assert_value:
+            print "."
+        elif self.on_assert_error_key != None:
+            try:
+                print output[self.on_assert_error_key]
+            except:
+                print output
+        else:
+            print "Error: %s" % (output)
+
+if __name__ == "__main__":
+    tauto = Restautomator()
+    tauto.load()
+    tauto.sort()
+    
+    out = tauto.perform(0, None)
+
+    tauto.check_output(out)

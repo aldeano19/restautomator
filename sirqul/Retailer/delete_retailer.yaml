@@ -1,0 +1,33 @@
+step1:
+    details:
+        ordinal: 1
+        title: "Create Retailer"
+        entry_point: "/retailer/create"
+        # confirm_output: True
+
+    data:
+        accountId: 2547109
+        name: "Headquarters"
+        streetAddress: "1000 sw Atlantic Ave."
+        city: "Pompano Beach"
+        state: "FL"
+        postalCode: "33033"
+        businessPhone: "1231231233"
+
+step2:
+    details:
+        ordinal: 2
+        title: "Delete Retailer"
+        entry_point: "/retailer/delete"
+        # confirm_output: True
+
+    data:
+        accountId: 2547109
+        retailerId: 
+
+    dependencies: ["item", "retailerId", "retailerId"]
+
+assert:
+    key: "valid"
+    value: True
+    on_error_key: "message"

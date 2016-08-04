@@ -1,0 +1,20 @@
+step1:
+  details:
+    ordinal: 1
+    title: "create_retailer"
+    entry_point: "/retailer/create"
+    confirm_output: True
+
+  data:
+    accountId: 2547109
+    name: "Headquarters"
+    streetAddress: "1000 sw Atlantic Ave."
+    city: "Pompano Beach"
+    state: "FL"
+    postalCode: "33033"
+    businessPhone: "1231231233"
+
+assert:
+  key: "valid"
+  value: True
+  on_error_key: "message"
