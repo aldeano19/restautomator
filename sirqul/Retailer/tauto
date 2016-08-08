@@ -54,6 +54,31 @@ class Restautomator(object):
     self.assert_key = None # what key to look for to assert on output_dict
     self.assert_value = None # what value to expect from output_dict[self.assert_key]
     self.on_assert_error_key = None # what key to grab from out dict if error
+  
+  # def get_url(self, base_url, contents, step, constants):
+  #   entry_point = contents[step]["details"]["entry_point"]
+
+  #   if type(entry_point) == str:
+  #     return base_url + entry_point
+  #   else:
+  #     return base_url + constants["entry_point"]
+
+  def get_data(self, global_data, contents, step, constants):
+    dirty_data = contents[step]["data"]
+    clean_data = {}
+    for key in dirty_data:
+      if type(dirty_data[key]) is str:
+        clean_data[key] = dirty_data[key]
+      else:
+        # clean_data[key] = 
+        for k in dirty_data[key]:
+          clean_data[key] = constants[dirty_data[key][k]]
+        
+    return clean_data
+
+  def get_headers(self, global_data, contents, step, constants):
+
+
 
   def load(self):
     # load Global YAML
@@ -62,7 +87,8 @@ class Restautomator(object):
 
     base_url = contents["base_url"]
     headers = contents["headers"]
-    data = contents["data"]
+    global_data = contents["data"]
+    constants = contents["constants"]
 
     # load Custom YAML
     with open(self.yaml_file, "r") as yaml_custom:
@@ -77,7 +103,8 @@ class Restautomator(object):
 
       url = base_url + contents[step]["details"]["entry_point"]
       ordinal = contents[step]["details"]["ordinal"]
-      data.update(contents[step]["data"])
+
+      data = self.get_data(global_data, contents, step, constants)
       
       dependencies = None
 

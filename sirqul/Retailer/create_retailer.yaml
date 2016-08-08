@@ -6,13 +6,20 @@ step1:
     confirm_output: True
 
   data:
-    accountId: 2547109
-    name: "Headquarters"
-    streetAddress: "1000 sw Atlantic Ave."
-    city: "Pompano Beach"
-    state: "FL"
-    postalCode: "33033"
-    businessPhone: "1231231233"
+    accountId:
+      global_constants: accountId
+    name:
+      global_constants: headquarter_name
+    streetAddress:
+      global_constants: headquarter_streetAddress
+    city:
+      global_constants: headquarter_city
+    state:
+      global_constants: headquarter_state
+    postalCode:
+      global_constants: headquarter_zip
+    businessPhone:
+      global_constants: headquarter_phone
 
 assert:
   key: "valid"
