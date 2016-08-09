@@ -1,0 +1,67 @@
+Object  "/consumer/connection/group"
+        Creates a new private group.
+        Returns ConnectionGroupResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "name=MyCamelCaseGroup" \
+        -d "description=A Description" \
+        https://dev-test.sirqul.com/api/3.15/consumer/connection/group
+
+        NOTES: 
+          - 'name' is not Optional as the documentation states.
+          - 'description' is not Optional as the documentation states. Unlike when requesting without name, when requesting without 'description', the response error is non-descriptive of the issue, it says "not-null property references a null or transient va..." instead of "...cant complete request without a description."
+          - This CURL depends on a valid connectionId. How do I create a connectionId
+          - Default value (0) on connectionId will not work
+
+
+SirqulResponse  POST "/consumer/connection/add"
+        Creates or updates the connection of the user and another account.
+        Returns SirqulResponse
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "connectionId=1111" \
+        https://dev-test.sirqul.com/api/3.15/consumer/connection/add
+
+        NOTES:
+        - How do I create a connectionId
+        - Default value (0) on connectionId will not work
+
+
+Object  "/consumer/connection/group/addConnection"
+        Adds a connection to a group.
+        Returns a SirqulResponse with a message of success or fail
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "connectionId=1111" \
+        -d "groupId=759" \
+        https://dev-test.sirqul.com/api/3.15/consumer/connection/group/addConnection
+
+        NOTES:
+        - 'groupId' is 'connectionGroupId' in the response of '/consumer/connection/group'
+        - How to create a connectionId
+
+
+Object  "/consumer/connection/group/addSubGroup"
+        Add sub groups to a group.
+        Returns ConnectionGroupResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "connectionId=1111" \
+        -d "groupId=759" \
+        https://dev-test.sirqul.com/api/3.15/consumer/connection/group/addSubGroup

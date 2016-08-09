@@ -1,0 +1,235 @@
+# release 1.0 - Beta
+# Eriel Marimon - August 8, 2016
+# tauto, a yaml based REST API testing framework
+
+#!/usr/bin/python
+import yaml
+import sys
+import requests
+import json
+import datetime
+
+
+def get_item_from_dict(m_dict, tree_list):
+  real_length = len(tree_list) - 1
+  if real_length == 1:
+      return m_dict[tree_list[0]]
+  elif real_length == 2:
+      return m_dict[tree_list[0]][tree_list[1]]
+  elif real_length == 3:
+      return m_dict[tree_list[0]][tree_list[1]][tree_list[2]]
+  elif real_length == 4:
+      return m_dict[tree_list[0]][tree_list[1]][tree_list[2]][tree_list[3]]
+  else:
+      raise Exception("The Next step depends in a 5th level variable, wich is not supported.")
+
+class TautoAssertion(object):
+  def __init__(self, key, expected, on_error_key, silent=False):
+    self.key = key
+    self.expected = expected
+    self.on_error_key = on_error_key
+
+    self.silent = silent
+
+  def do(self, out_dict):
+    if out_dict[self.key] == self.expected:
+      if self.silent:
+        return
+      print "."
+    elif self.on_error_key != None:
+      try:
+        print out_dict[self.on_error_key]
+      except:
+        print out_dict
+    else:
+      print "Error, type: False-Assertion. FINAL OUTPUT %s" % (json.dumps(out_dict))
+
+
+class Step(object):
+  def __init__(self, url, headers, data, details):
+
+
+    self.url = url
+    self.headers = headers
+    self.data = data
+
+    self.title = details["title"]
+    self.ordinal = details["ordinal"]
+    self.dependencies = details["dependencies"]
+    self.confirm_output = details["confirm_output"]
+    self.write_output = details["write_output"]
+    self.read_input = details["read_input"]
+
+    self.input_dict = None
+    if self.read_input != "":
+      file_in = "/tmp/%s" % (self.read_input)
+      with open(file_in, "r") as inp:
+        self.input_dict = json.loads(inp.read())
+
+  def execute(self, input_dict):
+    if self.dependencies != None:      
+      for d in self.dependencies:
+        self.data[d[-1]] = get_item_from_dict(input_dict, d)
+      
+
+    response = requests.post(self.url, data=self.data, headers=self.headers, verify=False)
+
+    if self.write_output != "":
+      outputname = "/tmp/%s" % (self.write_output)
+      with open(outputname, "w") as out:
+        out.write(response.content)
+
+    return json.loads(response.content)
+
+class Restautomator(object):
+  def __init__(self):
+    self.GLOBAL_YAML = "global.yaml"        
+    self.yaml_file = sys.argv[1]
+
+    self.steps = []
+
+    # self.assert_key = None # what key to look for to assert on output_dict
+    # self.assert_value = None # what value to expect from output_dict[self.assert_key]
+    # self.on_assert_error_key = None # what key to grab from out dict if error
+
+    self.assertions = None
+
+  def get_data(self, global_data, contents, step, constants):
+    dirty_data = contents[step]["data"]
+    clean_data = {}
+    for key in dirty_data:
+      if type(dirty_data[key]) is not dict:
+        clean_data[key] = dirty_data[key]
+      else:
+        for k in dirty_data[key]:
+          clean_data[key] = constants[dirty_data[key][k]]
+    
+    return clean_data
+
+  # def get_headers(self, global_data, contents, step, constants):
+
+  def get_assertions(self, assertions):
+    assertion_list = []
+    for asse in assertions:
+      key = assertions[asse]["key"]
+      expected = assertions[asse]["expected"]
+      on_error_key = assertions[asse]["on_error_key"]
+
+      silent = False
+      if "silent" in assertions[asse]:
+        silent = assertions[asse]["silent"]
+
+      assertion_list.append(TautoAssertion(key, expected, on_error_key, silent))
+    
+    return assertion_list
+
+  def load(self):
+    # load Global YAML
+    with open(self.GLOBAL_YAML, "r") as yaml_global:
+        contents = yaml.load(yaml_global)
+
+    base_url = contents["base_url"]
+    headers = contents["headers"]
+    global_data = contents["data"]
+    constants = contents["constants"]
+
+    # load Custom YAML
+    with open(self.yaml_file, "r") as yaml_custom:
+        contents = yaml.load(yaml_custom)
+
+    self.assertions = self.get_assertions(contents["assert"])
+    # exit()
+
+    for step in contents:
+      if step == "assert":
+          continue
+
+      details = {}
+
+      url = base_url + contents[step]["details"]["entry_point"]
+      data = self.get_data(global_data, contents, step, constants)
+      
+      dependencies = None
+      if "dependencies" in contents[step]:
+          dependencies = contents[step]["dependencies"]
+
+      if "headers" in contents[step]:
+          headers.update(contents[step]["headers"])
+
+      confirm_output = False
+      if "confirm_output" in contents[step]["details"]:
+          confirm_output = contents[step]["details"]["confirm_output"]
+
+      write_output = ""
+      if "write_output" in contents[step]["details"]:
+          write_output = contents[step]["details"]["write_output"]
+
+      read_input = ""
+      if "read_input" in contents[step]["details"]:
+        read_input = contents[step]["details"]["read_input"]
+
+      details["title"] = step
+      details["entry_point"] = contents[step]["details"]["entry_point"]
+      details["ordinal"] = contents[step]["details"]["ordinal"]
+      details["dependencies"] = dependencies
+      details["confirm_output"] = confirm_output
+      details["write_output"] = write_output
+      details["read_input"] = read_input
+
+      self.steps.append(Step(url, headers, data, details))
+  
+  # def order(self):
+  def sort(self):
+    for i in range(1,len(self.steps)):    
+      j = i
+      while j > 0 and self.steps[j].ordinal < self.steps[j-1].ordinal:
+        self.steps[j], self.steps[j-1] = self.steps[j-1], self.steps[j]
+        j-=1 
+
+  # recursive function that performs all steps and returns the output of the last one
+  def perform(self, step_index, input_dict):
+    # For mutiple steps or single independent step:
+    if step_index >= len(self.steps):
+      return input_dict
+
+    elif len(self.steps) == 1 and self.steps[step_index].input_dict != None:
+      # If there is only one step and it needs input from file execute that step and return
+      output = self.steps[step_index].execute(self.steps[step_index].input_dict)  
+      # if confirm_output flag is on then show output json to screen
+      if self.steps[step_index].confirm_output:
+        self.confirm_current_step_output(self.steps[step_index], output)
+      return output
+
+    else: # If there are more steps continue recursion
+      output = self.steps[step_index].execute(input_dict)
+
+      # if confirm_output flag is on then show output json to screen
+      if self.steps[step_index].confirm_output:
+        self.confirm_current_step_output(self.steps[step_index], output)
+      return self.perform(step_index+1, output)
+  
+  def confirm_current_step_output(self, Step, output):
+      print ">>> Step %s OUTPUT for  in sequence: \n\t%s" % (Step.ordinal, output)
+      print "-"*50
+
+  def check_output(self, output):
+      if output[self.assert_key] == self.assert_value:
+        print "."
+      elif self.on_assert_error_key != None:
+        try:
+            print output[self.on_assert_error_key]
+        except:
+            print output
+      else:
+        print "Error, type: False-Assertion. FINAL OUTPUT %s" % (json.dumps(output))
+
+if __name__ == "__main__":
+    tauto = Restautomator()
+    tauto.load()
+    tauto.sort()
+
+    out = tauto.perform(0, None)
+
+    # tauto.check_output(out)
+    for assertion in tauto.assertions:
+      assertion.do(out)
