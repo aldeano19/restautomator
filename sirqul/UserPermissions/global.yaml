@@ -21,6 +21,9 @@ constants:
   child_group_name: "TheChild"
   child_group_description: ":'("
 
+  permissionable_type_album: album
+  permissionable_id: 766187
+
   headquarter_name: "Headquarters"
   headquarter_streetAddress: "1000 sw Atlantic Ave."
   headquarter_city: "Pompano Beach"

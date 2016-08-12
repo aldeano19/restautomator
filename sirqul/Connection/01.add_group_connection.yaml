@@ -1,0 +1,19 @@
+add_group_connection:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/connection/group/addConnection"
+    write_output: "add_connection_out"
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    connectionId:
+      global_constants: connection_id
+    groupId:
+      global_constants: group_id
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

@@ -1,0 +1,20 @@
+permission_leave:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/permissions/leave"
+    write_output: "permission_leave_out"
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: mr_t_account_id
+    permissionableType:
+      global_constants: permissionable_type_album
+    permissionableId:
+      global_constants: permissionable_id
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

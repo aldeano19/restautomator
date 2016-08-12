@@ -1,0 +1,201 @@
+x 1. Object   "/retailer/create"
+        Create a retailer record.
+        Returns RetailerFullResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "name=Headquarters" \
+        -d "streetAddress=1000 sw Atlantic Ave." \
+        -d "city=Pompano Beach" \
+        -d "state=Fl" \
+        -d "postalCode=33024" \
+        -d "businessPhone=1231231233" \
+        https://dev-test.sirqul.com/api/3.15/retailer/create
+
+        STEPS:
+            1. create Retailer
+
+x 2. Object   "/location/create"
+        Creates a location record for an application that can support crowd sourced locations.
+        Returns RetailerLocationResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "name=Headquarters" \
+        -d "appKey=6bebe7eba601b1fdc47e5995e3b9a181" \
+        https://dev-test.sirqul.com/api/3.15/location/create
+
+        NOTES:
+            - this will fail with message "This application does not support crowd sourcing locations.", What does it means?
+
+x 3. Object   "/retailer/location/create"
+        Creates a location record for a retailer.
+        Returns RetailerLocationResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "name=Headquarters" \
+        -d "streetAddress=1000 sw Atlantic Ave." \
+        -d "city=Pompano Beach" \
+        -d "state=Fl" \
+        -d "postalCode=33024" \
+        -d "retailerId=199012" \
+        https://dev-test.sirqul.com/api/3.15/retailer/location/create
+
+4. SirqulResponse   "/retailer/delete"
+        Set the deleted timestamp to current time.
+        Returns a SirqulResponse with a message of success or fail
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "retailerId=199012" \
+        https://dev-test.sirqul.com/api/3.15/retailer/delete
+
+5. SirqulResponse   "/retailer/location/delete"
+        Set the deleted timestamp to current time.
+        Returns a SirqulResponse with a message of success or fail
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "retailerId=199012" \
+        https://dev-test.sirqul.com/api/3.15/retailer/location/delete
+
+6. SirqulResponse   "/retailer/get"
+        Gets a retailer.
+        Returns RetailerFullResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "retailerId=199012" \
+        https://dev-test.sirqul.com/api/3.15/retailer/get
+
+7. SirqulResponse   "/retailer/location/get"
+        Gets a retailer location.
+        Returns RetailerLocationResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "retailerLocationId=347813" \
+        https://dev-test.sirqul.com/api/3.15/retailer/location/get
+
+8. SirqulResponse   "/location/get"
+        Gets the details of a retailer location as a consumer.
+        Returns WrappedResponse<RetailerLocationResponse> on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "retailerLocationId=347813" \
+        https://dev-test.sirqul.com/api/3.15/location/get
+
+9. SirqulResponse   "/retailer/search"
+        Searches on retailers that the account has access to.
+        Returns SearchResponse of RetailerResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "limit=10" \
+        https://dev-test.sirqul.com/api/3.15/retailer/search
+
+10. SirqulResponse  "/retailer/location/idistancesearch"
+        Retailer location indexed search by distance.
+        Returns ListResponse<RetailerLocationResponse> on valid response, SirqulResponse on invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "latitude=37" \
+        -d "longitude=-80" \
+        -d "searchRange=100" \
+        -d "distanceUnit=KILOMETERS" \
+        https://dev-test.sirqul.com/api/3.15/retailer/location/idistancesearch
+
+11. SirqulResponse  "/retailer/location/isearch"
+        Retailer location (faster) indexed search.
+        Returns ListResponse<RetailerLocationResponse> on valid response, SirqulResponse on invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        https://dev-test.sirqul.com/api/3.15/retailer/location/isearch
+
+12. SirqulResponse  POST "/retailer/login"
+        Retailer login check.
+        Returns AccountLoginResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "username=tcc@testcasecentral.com" \
+        -d "password=123456" \
+        https://dev-test.sirqul.com/api/3.15/retailer/login
+
+13. SirqulResponse  "/retailer/location/search"
+        Searches on retailer locations that the account has access to.
+        Returns SearchResponse of RetailerLocationResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "retailerIds=199012" \
+        https://dev-test.sirqul.com/api/3.15/retailer/location/search
+
+14. Object  "/retailer/update"
+        Update a retailer record.
+        Returns RetailerFullResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "retailerId=199012" \
+        -d "name=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+        https://dev-test.sirqul.com/api/3.15/retailer/update
+
+15. Object  "/retailer/location/update"
+        Updates a location record for a retailer.
+        Returns RetailerLocationResponse on a valid response, SirqulResponse on an invalid response
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "name=CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" \
+        -d "retailerLocationId=347813" \
+        https://dev-test.sirqul.com/api/3.15/retailer/location/update

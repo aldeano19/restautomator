@@ -1,0 +1,75 @@
+x 1. SirqulResponse   "/permissions/search"
+        Adds a user to a permissionable object.
+        Returns SirqulResponse
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "connectionAccountId=2547158" \
+        https://dev-test.sirqul.com/api/3.15/permissions/search
+
+        NOTES:
+          - the response to this will contain the permissionableType and    permissionableId necesary for the other entry points
+   
+        STEPS:
+          1. search for permissions
+
+x 2. SirqulResponse   "/consumer/permissions/add"
+        Adds a user to a permissionable object.
+        Returns SirqulResponse
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "permissionableType=album" \
+        -d "permissionableId=766187" \
+        -d "read=1" \
+        -d "connectionIds=1257682" \
+        https://dev-test.sirqul.com/api/3.15/consumer/permissions/add
+
+        STEPS:
+            1. add account 1257682 as a connection of account 2547109
+            2. set permission 'read' of 1257682 to 0
+            3. check that permission 'read' of 1257682 is 0
+            4. set permission 'read' of 1257682 to 1
+            5. check that permission 'read' of 1257682 is 1
+
+
+x 3. SirqulResponse   "/consumer/permissions/leave"
+        Used when the user wants to leave from someone else's permissionable object
+        Returns SirqulResponse
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547158" \
+        -d "permissionableType=album" \
+        -d "permissionableId=766187" \
+        https://dev-test.sirqul.com/api/3.15/consumer/permissions/leave
+
+        STEPS:
+            1. add account 2547158 to permissionable 766187
+            2. account 2547158 leaves permissionable 766187
+
+4. SirqulResponse   "/consumer/permissions/remove"
+        Used to remove someone (assuming they have permission) from a permissionable object
+        Returns SirqulResponse
+
+        curl -i -X POST \
+        -H "Application-Key: 6bebe7eba601b1fdc47e5995e3b9a181" \
+        -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
+        -d "version=3.15" \
+        -d "accountId=2547109" \
+        -d "permissionableType=album" \
+        -d "permissionableId=766187" \
+        -d "connectionIds=1257682" \
+        https://dev-test.sirqul.com/api/3.15/consumer/permissions/remove
+
+        STEPS:
+            1. Add connection 1257682 to permissionable 766187
+            2. Remove connection 1257682 from permissionable 766187

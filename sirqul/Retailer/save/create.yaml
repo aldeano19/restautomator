@@ -1,0 +1,28 @@
+create:
+  details:
+    ordinal: 1
+    title: "create_retailer"
+    entry_point: "/retailer/create"
+    write_output: "create_retailer_out"
+
+  data:
+    accountId:
+      global_constants: accountId
+    name:
+      global_constants: headquarter_name
+    streetAddress:
+      global_constants: headquarter_streetAddress
+    city:
+      global_constants: headquarter_city
+    state:
+      global_constants: headquarter_state
+    postalCode:
+      global_constants: headquarter_zip
+    businessPhone:
+      global_constants: headquarter_phone
+
+assert:
+  isvalid:
+    key: "valid"
+    value: True
+    on_error_key: "message"

@@ -1,0 +1,26 @@
+delete:
+  details:
+    ordinal: 1
+    title: "Delete Retailer"
+    entry_point: "/retailer/delete"
+    confirm_output: True
+    read_input: "create_retailer_out"
+
+  data:
+    accountId: 2547109
+    retailerId:
+    type:
+
+  dependencies:
+    - ["item", "retailerId", "retailerId"]
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"
+  versioncheck:
+    key: "version"
+    expected: 3.15
+    on_error_key: "version"
+    silent: True

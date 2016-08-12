@@ -1,13 +1,13 @@
-step1:
+create_retailer_location:
   details:
     ordinal: 1
-    title: "create_retailer"
-    entry_point: "/retailer/create"
+    entry_point: "/retailer/location/create"
+    write_output: "create_retailer_location_out"
     confirm_output: True
 
   data:
     accountId:
-      global_constants: accountId
+      global_constants: ken_account_id
     name:
       global_constants: headquarter_name
     streetAddress:
@@ -18,10 +18,11 @@ step1:
       global_constants: headquarter_state
     postalCode:
       global_constants: headquarter_zip
-    businessPhone:
-      global_constants: headquarter_phone
+    retailerId:
+      global_constants: test_retailer_id
 
 assert:
-  key: "valid"
-  value: True
-  on_error_key: "message"
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message

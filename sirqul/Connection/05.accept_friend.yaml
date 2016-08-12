@@ -1,0 +1,19 @@
+accept_friend:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/friend/accept"
+    write_output: "accept_friend_out"
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: mr_t_account_id
+    friendAccountId:
+      global_constants: ken_account_id
+    
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

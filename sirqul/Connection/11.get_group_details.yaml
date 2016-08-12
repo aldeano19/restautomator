@@ -1,0 +1,18 @@
+get_group_details:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/connection/group/details/get"
+    write_output: "get_group_details_out"
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    groupId:
+      global_constants: parent_group_id
+    
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

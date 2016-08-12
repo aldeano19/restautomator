@@ -1,0 +1,18 @@
+remove_group:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/connection/group/remove"
+    write_output: "remove_group_out"
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    groupId:
+      global_constants: parent_group_id
+    
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

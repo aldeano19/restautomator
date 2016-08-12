@@ -1,0 +1,19 @@
+permissions_search:
+  details:
+    ordinal: 1
+    entry_point: "/permissions/search"
+    write_output: "permissions_search_out"
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    connectionAccountId:
+      global_constants: mr_t_account_id
+    
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

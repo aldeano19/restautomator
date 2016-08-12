@@ -8,24 +8,10 @@ data:
   version: 3.15
   
 constants:
-  ken_account_id: 2547109
-  ken_and_mr_t_connection_id: 1257682
-
-  mr_t_account_id: 2547158
-  
-  parent_group_id: 759
-  parent_group_name: "TheFather"
-  parent_group_description: "I am not your father."
-  
-  child_group_id: 759
-  child_group_name: "TheChild"
-  child_group_description: ":'("
-
+  accountId: 2547109
   headquarter_name: "Headquarters"
   headquarter_streetAddress: "1000 sw Atlantic Ave."
   headquarter_city: "Pompano Beach"
   headquarter_state:  "FL"
   headquarter_zip: "33033"
   headquarter_phone: "1231231233"
-  connection_id: 1257682
-  group_id: 759
