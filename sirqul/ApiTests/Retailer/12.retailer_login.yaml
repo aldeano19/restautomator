@@ -1,0 +1,26 @@
+retailer_login:
+  details:
+    ordinal: 1
+    entry_point: "/retailer/login"
+    write_output: "retailer_login_out"
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    username:
+      global_constants: tcc_user
+    password:
+      global_constants: tcc_password
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
+
+  confirmid:
+    key: accountId
+    expected: 2547158
+    on_error_key: accountId
+    silent: True

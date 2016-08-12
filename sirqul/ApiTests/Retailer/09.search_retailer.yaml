@@ -1,0 +1,24 @@
+search_retailer:
+  details:
+    ordinal: 1
+    entry_point: "/retailer/search"
+    write_output: "search_retailer_out"
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    limit:
+      global_constants: search_result_limit
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
+
+  confirmcount:
+    key: count
+    expected: 10
+    on_error_key: countTotal
+    silent: True

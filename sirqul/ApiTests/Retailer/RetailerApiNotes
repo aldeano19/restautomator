@@ -51,7 +51,7 @@ x 3. Object   "/retailer/location/create"
         -d "retailerId=199012" \
         https://dev-test.sirqul.com/api/3.15/retailer/location/create
 
-4. SirqulResponse   "/retailer/delete"
+x 4. SirqulResponse   "/retailer/delete"
         Set the deleted timestamp to current time.
         Returns a SirqulResponse with a message of success or fail
 
@@ -63,7 +63,7 @@ x 3. Object   "/retailer/location/create"
         -d "retailerId=199012" \
         https://dev-test.sirqul.com/api/3.15/retailer/delete
 
-5. SirqulResponse   "/retailer/location/delete"
+x 5. SirqulResponse   "/retailer/location/delete"
         Set the deleted timestamp to current time.
         Returns a SirqulResponse with a message of success or fail
 
@@ -75,7 +75,7 @@ x 3. Object   "/retailer/location/create"
         -d "retailerId=199012" \
         https://dev-test.sirqul.com/api/3.15/retailer/location/delete
 
-6. SirqulResponse   "/retailer/get"
+x 6. SirqulResponse   "/retailer/get"
         Gets a retailer.
         Returns RetailerFullResponse on a valid response, SirqulResponse on an invalid response
 
@@ -87,7 +87,7 @@ x 3. Object   "/retailer/location/create"
         -d "retailerId=199012" \
         https://dev-test.sirqul.com/api/3.15/retailer/get
 
-7. SirqulResponse   "/retailer/location/get"
+x 7. SirqulResponse   "/retailer/location/get"
         Gets a retailer location.
         Returns RetailerLocationResponse on a valid response, SirqulResponse on an invalid response
 
@@ -99,7 +99,7 @@ x 3. Object   "/retailer/location/create"
         -d "retailerLocationId=347813" \
         https://dev-test.sirqul.com/api/3.15/retailer/location/get
 
-8. SirqulResponse   "/location/get"
+x 8. SirqulResponse   "/location/get"
         Gets the details of a retailer location as a consumer.
         Returns WrappedResponse<RetailerLocationResponse> on a valid response, SirqulResponse on an invalid response
 
@@ -111,7 +111,7 @@ x 3. Object   "/retailer/location/create"
         -d "retailerLocationId=347813" \
         https://dev-test.sirqul.com/api/3.15/location/get
 
-9. SirqulResponse   "/retailer/search"
+x 9. SirqulResponse   "/retailer/search"
         Searches on retailers that the account has access to.
         Returns SearchResponse of RetailerResponse on a valid response, SirqulResponse on an invalid response
 
@@ -123,7 +123,7 @@ x 3. Object   "/retailer/location/create"
         -d "limit=10" \
         https://dev-test.sirqul.com/api/3.15/retailer/search
 
-10. SirqulResponse  "/retailer/location/idistancesearch"
+x 10. SirqulResponse  "/retailer/location/idistancesearch"
         Retailer location indexed search by distance.
         Returns ListResponse<RetailerLocationResponse> on valid response, SirqulResponse on invalid response
 
@@ -132,13 +132,13 @@ x 3. Object   "/retailer/location/create"
         -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
         -d "version=3.15" \
         -d "accountId=2547109" \
-        -d "latitude=37" \
-        -d "longitude=-80" \
+        -d "latitude=26.231" \
+        -d "longitude=-80.112" \
         -d "searchRange=100" \
         -d "distanceUnit=KILOMETERS" \
         https://dev-test.sirqul.com/api/3.15/retailer/location/idistancesearch
 
-11. SirqulResponse  "/retailer/location/isearch"
+x 11. SirqulResponse  "/retailer/location/isearch"
         Retailer location (faster) indexed search.
         Returns ListResponse<RetailerLocationResponse> on valid response, SirqulResponse on invalid response
 
@@ -149,7 +149,7 @@ x 3. Object   "/retailer/location/create"
         -d "accountId=2547109" \
         https://dev-test.sirqul.com/api/3.15/retailer/location/isearch
 
-12. SirqulResponse  POST "/retailer/login"
+x 12. SirqulResponse  POST "/retailer/login"
         Retailer login check.
         Returns AccountLoginResponse on a valid response, SirqulResponse on an invalid response
 

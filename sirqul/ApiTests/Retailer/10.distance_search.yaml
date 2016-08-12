@@ -1,0 +1,25 @@
+distance_search:
+  details:
+    ordinal: 1
+    entry_point: "/retailer/location/idistancesearch"
+    write_output: "distance_search_out"
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    latitude:
+      global_constants: headquarters_lat
+    longitude:
+      global_constants: headquarters_lon
+    searchRange:
+      global_constants: search_range
+    distanceUnit:
+      global_constants: kilometers_units
+  
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
+

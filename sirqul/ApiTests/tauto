@@ -218,7 +218,14 @@ if __name__ == "__main__":
     tauto.load()
     tauto.sort()
 
-    out = tauto.perform(0, None)
+    out = None
+    try:
+      out = tauto.perform(0, None)
+    except:
+      print "An Error has occurred:"
+      print "   - Verify your yaml config is right. Ex. check all the data variables are spelled correctly."
+      print "   - Verify target server is running."
 
-    for assertion in tauto.assertions:
-      assertion.do(out)
+    if out:
+      for assertion in tauto.assertions:
+        assertion.do(out)

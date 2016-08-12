@@ -1,15 +1,14 @@
-delete_retailer_location:
+get_retailer_location:
   details:
     ordinal: 1
-    entry_point: "/retailer/location/delete"
-    write_output: "delete_retailer_location_out"
+    entry_point: "/retailer/location/get"
+    write_output: "get_retailer_location_out"
     confirm_output: True
 
   data:
     accountId:
       global_constants: ken_account_id
-    retailerId: # this is confusing, api asks for retailerId
-                # instead of retailerLocationId
+    retailerLocationId:
       global_constants: test_retailer_location_id
 
 assert:

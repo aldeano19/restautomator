@@ -1,0 +1,18 @@
+get_retailer:
+  details:
+    ordinal: 1
+    entry_point: "/retailer/get"
+    write_output: "get_retailer_out"
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    retailerId:
+      global_constants: test_retailer_id
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message

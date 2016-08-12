@@ -1,15 +1,13 @@
-create:
+create_retailer:
   details:
     ordinal: 1
-    title: "create_retailer"
     entry_point: "/retailer/create"
-    confirm_output: False
     write_output: "create_retailer_out"
-
+    confirm_output: True
 
   data:
     accountId:
-      global_constants: accountId
+      global_constants: ken_account_id
     name:
       global_constants: headquarter_name
     streetAddress:
@@ -24,6 +22,7 @@ create:
       global_constants: headquarter_phone
 
 assert:
-  key: "valid"
-  value: True
-  on_error_key: "message"
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message

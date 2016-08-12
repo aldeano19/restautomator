@@ -1,0 +1,18 @@
+get_location:
+  details:
+    ordinal: 1
+    entry_point: "/location/get"
+    write_output: "get_location_out"
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    retailerLocationId:
+      global_constants: test_retailer_location_id
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message

@@ -1,0 +1,16 @@
+search_location:
+  details:
+    ordinal: 1
+    entry_point: "/retailer/location/isearch"
+    write_output: "search_location_out"
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
