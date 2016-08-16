@@ -1,0 +1,22 @@
+test:
+  details:
+    ordinal: 1
+    entry_point: "/analytics/filteredUsage"
+    write_output: "test"
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    appKey:
+      global_constants: app_key 
+    tag: "a_random_tag"
+    customId: 1234567890
+    responseFormat: "JSON"
+
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

@@ -42,6 +42,7 @@ x 2. Object  "/consumer/connection/group/addSubGroup"
           1. create parent group
           2. create child group
           3. add child group as subgroup of parent group
+          4. check
 
           * connection id: 1111
 
@@ -212,7 +213,7 @@ x 11. SirqulResponse  "/consumer/connection/group/details/get"
         -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
         -d "version=3.15" \
         -d "accountId=2547109" \
-        -d "groupId=760" \
+        -d "groupId=801" \
         https://dev-test.sirqul.com/api/3.15/consumer/connection/group/details/get
 
         NOTES:
