@@ -10,19 +10,38 @@ import requests
 import json
 import datetime
 
+def has_embeded_list(the_list):
+  for i in range(len(the_list)):
+    if type(the_list[i]) == list:
+      return i
+  
 
 def get_item_from_dict(m_dict, tree_list):
   real_length = len(tree_list) - 1
   if real_length == 1:
-      return m_dict[tree_list[0]]
+    return m_dict[tree_list[0]]
   elif real_length == 2:
-      return m_dict[tree_list[0]][tree_list[1]]
+    return m_dict[tree_list[0]][tree_list[1]]
   elif real_length == 3:
-      return m_dict[tree_list[0]][tree_list[1]][tree_list[2]]
+    return m_dict[tree_list[0]][tree_list[1]][tree_list[2]]
   elif real_length == 4:
-      return m_dict[tree_list[0]][tree_list[1]][tree_list[2]][tree_list[3]]
+    return m_dict[tree_list[0]][tree_list[1]][tree_list[2]][tree_list[3]]
   else:
-      raise Exception("The Next step depends in a 5th level variable, wich is not supported.")
+      raise Exception("The Next step depends in a 5th level variable, wich is not supported yet.")
+
+# descends down a dictionary using key (which can ba a list of keys where every item corresponds to a lower level of the dictionary). If at some point it encounters a list of objects rather than a simple object, it will loop over that list, that would be the last level it can check, the final key should be there. returns a list of results
+def get_val_from_dict(key, out_dict):
+  output = []
+  if type(key) == str:
+    return out_dict[key]
+  elif type(key) == list:
+    for level in key:
+      if type(level) == str:
+        out_dict = out_dict[level]
+      elif type(level) == list:
+        for item in out_dict:
+          output.append(item[level[0]])
+  return output
 
 class TautoAssertion(object):
   def __init__(self, key, expected, on_error_key, silent=False):
@@ -33,17 +52,34 @@ class TautoAssertion(object):
     self.silent = silent
 
   def do(self, out_dict):
-    if out_dict[self.key] == self.expected:
-      if self.silent:
-        return
-      print "."
-    elif self.on_error_key != None:
-      try:
-        print out_dict[self.on_error_key]
-      except:
-        print out_dict
+    if type(self.key) == str:
+      if out_dict[self.key] == self.expected:
+        if self.silent:
+          return
+        print "."
+      elif self.on_error_key != None:
+        try:
+          print "on error key:", out_dict[self.on_error_key]
+          # print out_dict[self.on_error_key]
+        except:
+          print "exepted on error key:", out_dict
+      else:
+        print "Error, type: False-Assertion. FINAL OUTPUT %s" % (json.dumps(out_dict))
     else:
-      print "Error, type: False-Assertion. FINAL OUTPUT %s" % (json.dumps(out_dict))
+      # This else: block should be revised, the first nested if: is correct but the elses in it might be redundant or misleading
+      got = get_val_from_dict(self.key, out_dict)
+      if self.expected in got:
+        if self.silent:
+          return
+        print "."
+      elif self.on_error_key != None:
+        try:
+          print "on error key:", out_dict[self.on_error_key]
+          # print out_dict[self.on_error_key]
+        except:
+          print "exepted on error key:", got
+      else:
+        print "Error, type: False-Assertion. FINAL OUTPUT %s" % (json.dumps(out_dict))
 
 
 class Step(object):
@@ -62,10 +98,19 @@ class Step(object):
     self.read_input = details["read_input"]
 
     self.input_dict = None
-    if self.read_input != "":
+
+
+    if type(self.read_input) == str and self.read_input != "":
       file_in = "/tmp/%s" % (self.read_input)
       with open(file_in, "r") as inp:
         self.input_dict = json.loads(inp.read())
+    else:
+      self.input_dict = {}
+      for input_file in self.read_input:
+        file_in = "/tmp/%s" % (input_file)
+        with open(file_in, "r") as inp:
+          self.input_dict[input_file] = json.loads(inp.read())
+
 
   def execute(self, input_dict):
     if self.dependencies != None:      
@@ -109,12 +154,22 @@ class Restautomator(object):
 
   # def get_headers(self, global_data, contents, step, constants):
 
+  def get_expected_from_file(self, expected):
+    in_file = "/tmp/" + expected["file"]
+    with open(in_file, "r") as inp:
+      expected_input_dict = json.loads(inp.read())
+
+    return get_val_from_dict(expected["key_lookup"], expected_input_dict)
+
   def get_assertions(self, assertions):
     assertion_list = []
     for asse in assertions:
       key = assertions[asse]["key"]
-      expected = assertions[asse]["expected"]
       on_error_key = assertions[asse]["on_error_key"]
+      expected = assertions[asse]["expected"]
+
+      if type(expected) == dict:
+        expected = self.get_expected_from_file(expected)
 
       silent = False
       if "silent" in assertions[asse]:
@@ -139,7 +194,6 @@ class Restautomator(object):
         contents = yaml.load(yaml_custom)
 
     self.assertions = self.get_assertions(contents["assert"])
-    # exit()
 
     for step in contents:
       if step == "assert":

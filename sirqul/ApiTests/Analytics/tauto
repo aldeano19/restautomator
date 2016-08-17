@@ -125,6 +125,8 @@ class Step(object):
       with open(outputname, "w") as out:
         out.write(response.content)
 
+    # print response.content
+    # exit()
     return json.loads(response.content)
 
 class Restautomator(object):
@@ -273,13 +275,15 @@ if __name__ == "__main__":
     tauto.sort()
 
     out = None
+    out = tauto.perform(0, None)
     try:
       out = tauto.perform(0, None)
-    except:
+    except Exception, e:
       print "An Error has occurred:"
       print "   - Verify your yaml config is right. Ex. check all the data variables are spelled correctly."
       print "   - Verify target server is running."
 
+      print e
     if out:
       for assertion in tauto.assertions:
         assertion.do(out)

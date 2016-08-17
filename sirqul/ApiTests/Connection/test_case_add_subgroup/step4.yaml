@@ -1,0 +1,31 @@
+get_group_details:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/connection/group/details/get"
+    write_output: "get_group_details_out"
+    read_input:
+      - addsubgroup_create_parent_group
+      - addsubgroup_create_child_group
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    groupId:
+
+  dependencies:
+    - ["addsubgroup_create_parent_group", "connectionGroupId", "groupId"]
+    
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"
+    silent: True
+
+  check_subgroup:
+    key: ["subGroups", ["connectionGroupId"]]
+    expected: 
+      file: "addsubgroup_create_child_group"
+      key_lookup: "connectionGroupId"
+    on_error_key: "subGroups"

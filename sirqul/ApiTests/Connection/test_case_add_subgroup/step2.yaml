@@ -1,0 +1,20 @@
+addsubgroup_create_child_group:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/connection/group"
+    write_output: "addsubgroup_create_child_group"
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    name:
+      global_constants: child_group_name
+    description:
+      global_constants: child_group_description
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"
