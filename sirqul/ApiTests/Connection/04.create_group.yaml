@@ -1,9 +1,9 @@
 create_group:
   details:
     ordinal: 1
-    entry_point: "/consumer/connection/group"
-    write_output: "create_group_out"
-    # confirm_output: True
+    entry_point: /consumer/connection/group
+    write_output: create_group_out
+    confirm_output: True
 
   data:
     accountId:
@@ -16,7 +16,16 @@ create_group:
       global_constants: parent_group_description
 
 assert:
-  isvalid:
-    key: "valid"
-    expected: True
-    on_error_key: "message"
+  # isvalid:
+  #   key: valid
+  #   expected: True
+  #   on_error_key: message
+
+  one_more_group:
+    key: connectionGroupId
+    on_error_key: message
+    expected: 
+      file: create_group_out
+      key_lookup: connectionGroupId
+      +: 1 # increments the value in gotten from 'file' create_group_out 'key' connectionGroupId if this is a number
+      
