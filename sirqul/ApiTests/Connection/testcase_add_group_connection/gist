@@ -1,0 +1,25 @@
+Add Group Connection
+
+1. Create a group. A group has an owner that can add, update and remove connections. | 04
+
+2. Create a connection | 03 (/consumer/connection/add) |. A connection is created by giving two accounts, one of which is the owner (accountId), and the other is to what account to connect (connectionAccountId). Note that this does not returns the connectionId which is inconvenient for the user since now he needs to search for that newly created connectionId (which BTW isn't working for me as off this moment).
+
+3. Search for a connection between two accounts and get the connectionId. Using | 10 (/consumer/connection/get)| get the connection related to accountId and connectionAccountId. For some reason this is returning an empty list of connections.
+
+4. Add the connectionId found, to the group created on Step 1 by using | 01 (/consumer/connection/group/addConnection)|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. Create a connection. A connection is created by giving two accounts, one of which is the owner (accountId), and the other is whom to connect. Also should be given groupId so that the connection could be stored somewhere. A connection without a group is posible to be created but I dont know how to reference that connection since the /connection/create doesnt return specifics about the newly created connection. When a group is passed in, | 11 (/consumer/connection/group/details/get) | can be used to check the connection was created as well as retrieve the connectionId.
