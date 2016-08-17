@@ -8,7 +8,7 @@ x 1. Object  "/consumer/connection/group/addConnection"
         -d "version=3.15" \
         -d "accountId=2547109" \
         -d "connectionId=1257682" \
-        -d "groupId=759" \
+        -d "groupId=764" \
         https://dev-test.sirqul.com/api/3.15/consumer/connection/group/addConnection
 
         NOTES:
@@ -56,7 +56,8 @@ x 3. SirqulResponse  POST "/consumer/connection/add"
         -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
         -d "version=3.15" \
         -d "accountId=2547109" \
-        -d "connectionId=1257682" \
+        -d "connectionAccountId=2547158" \
+        -d "groupId=769" \
         https://dev-test.sirqul.com/api/3.15/consumer/connection/add
 
         NOTES:
@@ -65,8 +66,6 @@ x 3. SirqulResponse  POST "/consumer/connection/add"
 
         STEPS:
           1. add Connection to account
-
-          * connection id 1111
 
 
 x 4. Object  "/consumer/connection/group"
@@ -196,6 +195,7 @@ x 10. SirqulResponse  "/consumer/connection/get"
         -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
         -d "version=3.15" \
         -d "accountId=2547109" \
+        -d "connectionAccountId=2547158" \
         https://dev-test.sirqul.com/api/3.15/consumer/connection/get
 
         STEPS:
@@ -212,7 +212,7 @@ x 11. SirqulResponse  "/consumer/connection/group/details/get"
         -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
         -d "version=3.15" \
         -d "accountId=2547109" \
-        -d "groupId=760" \
+        -d "groupId=769" \
         https://dev-test.sirqul.com/api/3.15/consumer/connection/group/details/get
 
         NOTES:

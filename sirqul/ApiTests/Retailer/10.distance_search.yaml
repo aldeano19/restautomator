@@ -3,7 +3,7 @@ distance_search:
     ordinal: 1
     entry_point: "/retailer/location/idistancesearch"
     write_output: "distance_search_out"
-    confirm_output: True
+    # confirm_output: True
 
   data:
     accountId:

@@ -3,7 +3,7 @@ retailer_login:
     ordinal: 1
     entry_point: "/retailer/login"
     write_output: "retailer_login_out"
-    confirm_output: True
+    # confirm_output: True
 
   data:
     accountId:

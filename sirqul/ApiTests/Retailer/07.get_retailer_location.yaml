@@ -3,7 +3,7 @@ get_retailer_location:
     ordinal: 1
     entry_point: "/retailer/location/get"
     write_output: "get_retailer_location_out"
-    confirm_output: True
+    # confirm_output: True
 
   data:
     accountId:

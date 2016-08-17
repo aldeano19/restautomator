@@ -3,7 +3,7 @@ delete_retailer:
     ordinal: 1
     entry_point: "/retailer/delete"
     write_output: "delete_retailer_out"
-    confirm_output: True
+    # confirm_output: True
 
   data:
     accountId:

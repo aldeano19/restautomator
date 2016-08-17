@@ -3,7 +3,7 @@ remove_subgroup:
     ordinal: 1
     entry_point: "/consumer/connection/group/removeSubGroup"
     write_output: "remove_subgroup_out"
-    confirm_output: True
+    # confirm_output: True
 
   data:
     accountId:

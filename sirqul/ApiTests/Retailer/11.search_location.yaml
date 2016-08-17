@@ -3,7 +3,7 @@ search_location:
     ordinal: 1
     entry_point: "/retailer/location/isearch"
     write_output: "search_location_out"
-    confirm_output: True
+    # confirm_output: True
 
   data:
     accountId:

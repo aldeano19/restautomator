@@ -15,11 +15,11 @@ constants:
 
   mr_t_account_id: 2547158
   
-  parent_group_id: 759
+  parent_group_id: 764
   parent_group_name: "TheFather"
   parent_group_description: "I am not your father."
   
-  child_group_id: 759
+  child_group_id: 762
   child_group_name: "TheChild"
   child_group_description: ":'("
 
@@ -40,7 +40,7 @@ constants:
   test_retailer_location_id: 347813
 
   connection_id: 1257682
-  group_id: 759
+  removable_group_id: 755
 
   search_result_limit: 10
   

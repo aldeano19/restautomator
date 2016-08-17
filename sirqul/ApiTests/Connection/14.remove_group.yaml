@@ -9,7 +9,7 @@ remove_group:
     accountId:
       global_constants: ken_account_id
     groupId:
-      global_constants: parent_group_id
+      global_constants: removable_group_id
     
 assert:
   isvalid:
