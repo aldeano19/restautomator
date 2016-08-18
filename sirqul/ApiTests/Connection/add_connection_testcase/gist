@@ -1,0 +1,8 @@
+Test Create a connection
+
+** Assumes that 2 accounts already exist
+
+1. Create a connection | 03 (/consumer/connection/add) |. A connection is created by giving two accounts, one of which is the owner (accountId), and the other is to what account to connect (connectionAccountId). Note that this does not returns the connectionId which is inconvenient for the user since now he needs to search for that newly created connectionId (which BTW isn't working for me as off this moment 08/18/2016).
+
+2. Check the connection was created. Using | 10 (/consumer/connection/get)| get the connection related to accountId and connectionAccountId. For some reason this is returning an empty list of connections.
+		# Here a failure is forced because there is no way of successfully retrieving an existing connection id 100% of the time. To find a connectionId we need to search 1 by 1 in a set of all connections which we may not get entirelly because it has a set limit.

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # release 1.0 - Beta
 # Eriel Marimon - August 8, 2016
-# tauto, a yaml based REST API testing framework
+# tauto, a yaml based REST API testing tool
 
 
 import yaml
@@ -10,22 +10,58 @@ import requests
 import json
 import datetime
 
+# def get_headers(self, global_data, contents, step, constants):
+def check_and_perform_operations(value_to_modify, dict_to_check):
+  if "+" in dict_to_check and \
+    (type(dict_to_check["+"]) == int or \
+      type(dict_to_check["+"]) == float):
+        value_to_modify += dict_to_check["+"]
+  elif "-" in dict_to_check and \
+    (type(dict_to_check["-"]) == int or \
+      type(dict_to_check["-"]) == float):
+        value_to_modify -= dict_to_check["-"]
+  elif "multiply" in dict_to_check and \
+    (type(dict_to_check["multiply"]) == int or \
+      type(dict_to_check["multiply"]) == float):
+        value_to_modify *= dict_to_check["multiply"]
+  elif "divide" in dict_to_check and \
+    (type(dict_to_check["divide"]) == int or \
+      type(dict_to_check["divide"]) == float):
+        value_to_modify /= dict_to_check["divide"]
+
+  return value_to_modify
+
 def has_embeded_list(the_list):
   for i in range(len(the_list)):
     if type(the_list[i]) == list:
       return i
-  
 
 def get_item_from_dict(m_dict, tree_list):
   real_length = len(tree_list) - 1
   if real_length == 1:
-    return m_dict[tree_list[0]]
+    try:
+      return m_dict[tree_list[0]]
+    except KeyError:
+      msg = "Test Failed: '%s' does not exists in %s" % (tree_list[0], m_dict)
+      raise AssertionFailedException(msg)
   elif real_length == 2:
-    return m_dict[tree_list[0]][tree_list[1]]
+    try:
+      return m_dict[tree_list[0]][tree_list[1]]
+    except KeyError:
+      msg = "Test Failed: '%s'->'%s' does not exists in %s" % (tree_list[0], [tree_list[1]], m_dict)
+      raise AssertionFailedException(msg)
   elif real_length == 3:
-    return m_dict[tree_list[0]][tree_list[1]][tree_list[2]]
+    try:
+      return m_dict[tree_list[0]][tree_list[1]][tree_list[2]]
+    except KeyError:
+      msg = "Test Failed: '%s'->'%s'->'%s' does not exists in %s" % (tree_list[0], [tree_list[1]], [tree_list[2]], m_dict)
+      raise AssertionFailedException(msg)
   elif real_length == 4:
-    return m_dict[tree_list[0]][tree_list[1]][tree_list[2]][tree_list[3]]
+    try:
+      return m_dict[tree_list[0]][tree_list[1]][tree_list[2]][tree_list[3]]
+    except KeyError:
+      msg = "Test Failed: '%s'->'%s'->'%s'->'%s' does not exists in %s" % (tree_list[0], [tree_list[1]], [tree_list[2]], [tree_list[3]], m_dict)
+      raise AssertionFailedException(msg)
   else:
       raise Exception("The Next step depends in a 5th level variable, wich is not supported yet.")
 
@@ -43,16 +79,24 @@ def get_val_from_dict(key, out_dict):
           output.append(item[level[0]])
   return output
 
+class AssertionFailedException(Exception):
+    def __init__(self,*args,**kwargs):
+        Exception.__init__(self,*args,**kwargs)
+
 class TautoAssertion(object):
-  def __init__(self, key, expected, on_error_key, silent=False):
+  def __init__(self, key, expected, on_error_key, silent=False, fail=False):
     self.key = key
     self.expected = expected
     self.on_error_key = on_error_key
 
     self.silent = silent
 
+    self.fail = fail
+
   def do(self, out_dict):
-    if type(self.key) == str:
+    if self.fail:
+      print "e. Forced Failure"
+    elif type(self.key) == str:
       if out_dict[self.key] == self.expected:
         if self.silent:
           return
@@ -60,7 +104,6 @@ class TautoAssertion(object):
       elif self.on_error_key != None:
         try:
           print "on error key:", out_dict[self.on_error_key]
-          # print out_dict[self.on_error_key]
         except:
           print "exepted on error key:", out_dict
       else:
@@ -75,7 +118,6 @@ class TautoAssertion(object):
       elif self.on_error_key != None:
         try:
           print "on error key:", out_dict[self.on_error_key]
-          # print out_dict[self.on_error_key]
         except:
           print "exepted on error key:", got
       else:
@@ -152,30 +194,45 @@ class Restautomator(object):
     
     return clean_data
 
-  # def get_headers(self, global_data, contents, step, constants):
+
+
 
   def get_expected_from_file(self, expected):
     in_file = "/tmp/" + expected["file"]
     with open(in_file, "r") as inp:
       expected_input_dict = json.loads(inp.read())
 
-    return get_val_from_dict(expected["key_lookup"], expected_input_dict)
+    expected_val = get_val_from_dict(expected["key_lookup"], expected_input_dict)
+
+    # Checks if calculations where requested and performs them
+    expected_val = check_and_perform_operations(expected_val, expected)
+
+    return expected_val
 
   def get_assertions(self, assertions):
     assertion_list = []
     for asse in assertions:
-      key = assertions[asse]["key"]
-      on_error_key = assertions[asse]["on_error_key"]
-      expected = assertions[asse]["expected"]
+      force_fail = False
+      key = ""
+      on_error_key = ""
+      expected = ""
+      silent = None
 
-      if type(expected) == dict:
-        expected = self.get_expected_from_file(expected)
+      if not assertions[asse]:
+        force_fail = True
+      else:
+        key = assertions[asse]["key"]
+        on_error_key = assertions[asse]["on_error_key"]
+        expected = assertions[asse]["expected"]
 
-      silent = False
-      if "silent" in assertions[asse]:
-        silent = assertions[asse]["silent"]
+        if type(expected) == dict:
+          expected = self.get_expected_from_file(expected)
 
-      assertion_list.append(TautoAssertion(key, expected, on_error_key, silent))
+        silent = False
+        if "silent" in assertions[asse]:
+          silent = assertions[asse]["silent"]
+
+      assertion_list.append(TautoAssertion(key, expected, on_error_key, silent, fail=force_fail))
     
     return assertion_list
 
@@ -273,10 +330,13 @@ if __name__ == "__main__":
     tauto.sort()
 
     out = None
+    # out = tauto.perform(0, None)
     try:
       out = tauto.perform(0, None)
-    except:
-      print "An Error has occurred:"
+    except AssertionFailedException, e:
+      print "e. ", e
+    except Exception, e:
+      print "Critical Error has occurred:"
       print "   - Verify your yaml config is right. Ex. check all the data variables are spelled correctly."
       print "   - Verify target server is running."
 

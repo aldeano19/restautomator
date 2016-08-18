@@ -1,9 +1,9 @@
-addsubgroup_create_parent_group:
+create_parent_group_for_add_subgroup:
   details:
     ordinal: 1
-    entry_point: "/consumer/connection/group"
-    write_output: "addsubgroup_create_parent_group"
-    confirm_output: True
+    entry_point: /consumer/connection/group
+    write_output: create_parent_group_for_add_subgroup_out
+    # confirm_output: True
 
   data:
     accountId:
@@ -15,6 +15,6 @@ addsubgroup_create_parent_group:
 
 assert:
   isvalid:
-    key: "valid"
+    key: valid
     expected: True
-    on_error_key: "message"
+    on_error_key: message

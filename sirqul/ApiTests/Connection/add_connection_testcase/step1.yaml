@@ -1,0 +1,22 @@
+get_connection_for_add_connection:
+  details:
+    ordinal: 1
+    entry_point: /consumer/connection/get
+    # write_output: get_connection_for_add_connection_out
+    description: Search for a connection between two accounts and get the connectionId. Using | 10 (/consumer/connection/get)| get the connection related to accountId and connectionAccountId. For some reason this is returning an empty list of connections.
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: mr_t_account_id
+    connectionAccountId:
+      global_constants: ken_account_id
+    
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
+    silent: True
+  
+  hasconnection: False # this failure is forced because there is no way of successfully retrieving an existing connection id 100% of the time. To find a connectionId we need to search 1 by 1 in a set of all connections which we may not get entirelly because it has a limit.

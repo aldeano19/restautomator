@@ -213,11 +213,7 @@ x 11. SirqulResponse  "/consumer/connection/group/details/get"
         -H "Application-Rest-Key: de69a1afc278db90f8c101817099dd36" \
         -d "version=3.15" \
         -d "accountId=2547109" \
-<<<<<<< HEAD
-        -d "groupId=769" \
-=======
         -d "groupId=801" \
->>>>>>> 21f019af1348d448ccfe37cbe86f8f78e0f0383e
         https://dev-test.sirqul.com/api/3.15/consumer/connection/group/details/get
 
         NOTES:

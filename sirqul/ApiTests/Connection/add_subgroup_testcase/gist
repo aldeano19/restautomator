@@ -1,0 +1,11 @@
+Test Add a subgroup to a group.
+
+** Assumes that 2 accounts already exist
+
+1. Create a group which will be the parent group. A group has an owner that can add, update and remove connections. | 04
+
+2. Create a group which will be the child group. | 04
+
+3. Add child to parent as a subgroup. | 02
+
+4. Check that subgroup was added by getting the parent group details' with | 11 /consumer/connection/group/details/get |
