@@ -136,7 +136,6 @@ class TautoAssertion(object):
 class Step(object):
   def __init__(self, url, headers, data, details):
 
-
     self.url = url
     self.headers = headers
     self.data = data
