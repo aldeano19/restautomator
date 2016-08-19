@@ -4,6 +4,7 @@ retailer_login:
     entry_point: "/retailer/login"
     write_output: "retailer_login_out"
     # confirm_output: True
+    description: Log in the Ken user | 12
 
   data:
     accountId:

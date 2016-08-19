@@ -1,0 +1,13 @@
+Test Add Group Connection.
+
+** Assumes that 2 accounts already exist
+
+1. Create a group. A group has an owner that can add, update and remove connections. | 04
+
+2. Create a connection | 03 (/consumer/connection/add) |. A connection is created by giving two accounts, one of which is the owner (accountId), and the other is to what account to connect (connectionAccountId). Note that this does not returns the connectionId which is inconvenient for the user since now he needs to search for that newly created connectionId (which BTW isn't working for me as off this moment 08/18/2016).
+
+3. Search for a connection between two accounts and get the connectionId. Using | 10 (/consumer/connection/get)| get the connection related to accountId and connectionAccountId. For some reason this is returning an empty list of connections.
+
+4. Add the connectionId found, to the group created on Step 1 by using | 01 (/consumer/connection/group/addConnection)|
+
+x 5. Make sure the connection was added. This cannot be tested untill Step 4 passes.

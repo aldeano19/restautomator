@@ -1,9 +1,10 @@
-create_retailer:
+create_retailer_location_for_delete_retailer_location:
   details:
     ordinal: 1
-    entry_point: "/retailer/create"
-    write_output: "create_retailer_out"
+    entry_point: /retailer/location/create
+    write_output: create_retailer_location_for_delete_retailer_location_out
     confirm_output: True
+    description: Creates a Retailer Location
 
   data:
     accountId:
@@ -18,11 +19,17 @@ create_retailer:
       global_constants: headquarter_state
     postalCode:
       global_constants: headquarter_zip
-    businessPhone:
-      global_constants: headquarter_phone
+    retailerId:
+      global_constants: test_retailer_id
 
 assert:
   isvalid:
     key: valid
     expected: True
     on_error_key: message
+  
+  ## TODO check why is this not working
+  # checkname:
+  #   key: [item, name]
+  #   expected: Headquarters
+  #   on_error_key: message

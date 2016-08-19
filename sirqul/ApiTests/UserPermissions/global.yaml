@@ -46,4 +46,7 @@ constants:
   
   tcc_user: tcc@testcasecentral.com
   tcc_password: 123456 
+  
+  permissionable_id: 766187
+  permissionable_type_album: album
 

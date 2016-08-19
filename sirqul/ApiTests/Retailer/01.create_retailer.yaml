@@ -3,7 +3,7 @@ create_retailer:
     ordinal: 1
     entry_point: "/retailer/create"
     write_output: "create_retailer_out"
-    # confirm_output: True
+    confirm_output: True
 
   data:
     accountId:

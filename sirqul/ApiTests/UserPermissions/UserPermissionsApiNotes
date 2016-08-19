@@ -12,6 +12,7 @@ x 1. SirqulResponse   "/permissions/search"
 
         NOTES:
           - the response to this will contain the permissionableType and    permissionableId necesary for the other entry points
+          - This is not in the API docs any more
    
         STEPS:
           1. search for permissions
@@ -27,7 +28,7 @@ x 2. SirqulResponse   "/consumer/permissions/add"
         -d "accountId=2547109" \
         -d "permissionableType=album" \
         -d "permissionableId=766187" \
-        -d "read=1" \
+        -d "read=0" \
         -d "connectionIds=1257682" \
         https://dev-test.sirqul.com/api/3.15/consumer/permissions/add
 

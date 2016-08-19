@@ -1,0 +1,22 @@
+add_permission_for_permissions_add:
+  details:
+    ordinal: 1
+    entry_point: /consumer/permissions/add
+    description: Add permissions to a permissionable object. | 1
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    permissionableType:
+      global_constants: permissionable_type_album
+    permissionableId:
+      global_constants: permissionable_id
+    connectionId:
+      global_constants: ken_and_mr_t_connection_id
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message

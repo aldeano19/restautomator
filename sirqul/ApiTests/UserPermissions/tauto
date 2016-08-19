@@ -219,6 +219,13 @@ if __name__ == "__main__":
     tauto.sort()
 
     out = None
+
+    # this block is to check the exception on tauto.perform(0, None) when it fails. Just set a -d flag at the end of the command ./tauto x.yaml -d
+    if len(sys.argv) > 2 and sys.argv[2] == "-d":
+      print "DEBUGGING ---------------"
+      out = tauto.perform(0, None)
+      exit()
+
     try:
       out = tauto.perform(0, None)
     except:

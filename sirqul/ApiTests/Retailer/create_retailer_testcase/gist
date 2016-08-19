@@ -1,0 +1,5 @@
+Test Create a Retailer
+
+1. Create a retailer which returns a retailerId. | 01
+
+2. Get the retailer by retailerId to confirm creation | 06
