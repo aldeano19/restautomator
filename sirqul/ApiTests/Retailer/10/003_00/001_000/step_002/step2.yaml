@@ -1,0 +1,21 @@
+search_permission_for_permissions_add:
+  details:
+    ordinal: 1
+    entry_point: /permissions/search
+    description: IMPORTANT; For some reason this entry point was removed from the documentation. Search for permissionable object for a connectionId and confirm new permissions are set.
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    connectionAccountId:
+      global_constants: mr_t_account_id
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
+
+  # Another assertion needs t be added here to check permissions where checked
+

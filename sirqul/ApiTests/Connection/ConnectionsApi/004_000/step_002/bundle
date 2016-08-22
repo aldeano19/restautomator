@@ -1,0 +1,1 @@
+{"name":"create_child_group_for_add_subgroup:", "desc":"", "ordinal":"2", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step2.yaml", "id":"0"}

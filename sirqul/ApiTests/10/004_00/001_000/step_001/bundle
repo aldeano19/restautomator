@@ -1,0 +1,1 @@
+{"name":"create_location_for_create_location:", "desc":"Create a location which returns a locationId. | 02", "ordinal":"1", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step1.yaml", "id":"0"}

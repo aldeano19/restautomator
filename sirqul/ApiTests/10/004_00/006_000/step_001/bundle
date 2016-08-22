@@ -1,0 +1,1 @@
+{"name":"distance_search_for_distance_search:", "desc":"Search for retailers and confirm it got results | 10", "ordinal":"1", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step1.yaml", "id":"0"}

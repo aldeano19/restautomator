@@ -1,0 +1,18 @@
+get_location_for_create_location:
+  details:
+    ordinal: 1
+    entry_point: /location/get
+    # confirm_output: True
+    description: This step will not execute because step1 is failing. Will update when step1 is fixed
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    retailerLocationId:
+      global_constants: test_retailer_location_id
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message

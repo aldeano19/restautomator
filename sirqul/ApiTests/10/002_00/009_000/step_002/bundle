@@ -1,0 +1,1 @@
+{"name":"reject_friend_request_for_reject_friend:", "desc":"Reject the friend request | 05 |.  Also check for 'message':'Friend Rejected'", "ordinal":"2", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step2.yaml", "id":"0"}

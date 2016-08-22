@@ -1,0 +1,1 @@
+{"name":"get_group_details_for_remove_group:", "desc":"Get a group's details to confirm creation. | 11", "ordinal":"2", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step2.yaml", "id":"0"}

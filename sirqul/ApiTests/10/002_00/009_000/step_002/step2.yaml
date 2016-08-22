@@ -1,0 +1,25 @@
+reject_friend_request_for_reject_friend:
+  details:
+    ordinal: 1
+    entry_point: /consumer/friend/reject
+    description: Rejects a friend request
+    # confirm_output: True
+    description: Reject the friend request | 05 |.  Also check for 'message':'Friend Rejected'
+
+  data: 
+    accountId:
+      global_constants: mr_t_account_id
+    friendAccountId:
+      global_constants: ken_account_id
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"
+    silent: True
+
+  checksentmessage:
+    key: message
+    expected: Friend Rejected
+    on_error_key: message

@@ -1,0 +1,21 @@
+create_group_for_create_group:
+  details:
+    ordinal: 1
+    entry_point: /consumer/connection/group
+    write_output: create_group_for_create_group_out
+    description: Create a group.
+    # confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    name:
+      global_constants: parent_group_name
+    description:
+      global_constants: parent_group_description
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message

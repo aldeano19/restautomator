@@ -1,0 +1,1 @@
+{"name":"create_retailer_location_for_delete_retailer_location:", "desc":"Creates a Retailer Location", "ordinal":"1", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step1.yaml", "id":"0"}

@@ -1,0 +1,12 @@
+force_fail_testcase:
+  details:
+    ordinal: 1
+    entry_point: /a/bad/entry/point
+    # write_output: get_connection_for_add_connection_out
+    description: Fails a testcase for whatever reasons
+    # confirm_output: True
+  
+  data:
+    no_data: no_data
+assert:
+  pass: False # forcing a failure in case the entry point didnt make it fail

@@ -1,0 +1,27 @@
+get_retailer_for_create_retailer:
+  details:
+    ordinal: 1
+    entry_point: /retailer/get
+    read_input: create_retailer_for_create_retailer_out
+    confirm_output: True
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    retailerId:
+  
+  dependencies:
+    - [item, retailerId, retailerId]
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
+
+  # checkretailerId:
+  #   key: [item, retailerId]
+  #   expected: 199080
+      # file: create_retailer_for_create_retailer_out
+      # key_lookup: [item, retailerId]
+    # on_error_key: item

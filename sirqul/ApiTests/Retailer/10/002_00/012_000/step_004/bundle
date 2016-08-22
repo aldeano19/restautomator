@@ -1,0 +1,1 @@
+{"name":"get_group_details_for_remove_group:", "desc":"Try to get the group's details and make sure it fails since was deleted. | 11", "ordinal":"4", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step4.yaml", "id":"0"}

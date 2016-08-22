@@ -1,0 +1,22 @@
+remove_group_for_remove_group:
+  details:
+    ordinal: 1
+    entry_point: "/consumer/connection/group/remove"
+    # write_output: "remove_group_out"
+    read_input: create_group_for_remove_group_out
+    # confirm_output: True
+    description: Remove the group. | 14
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    groupId:
+
+  dependencies:
+    - [connectionGroupId, groupId]
+
+assert:
+  isvalid:
+    key: "valid"
+    expected: True
+    on_error_key: "message"

@@ -1,0 +1,1 @@
+{"name":"retailer_login_for_retailer_login:", "desc":"Log in the Ken user | 12", "ordinal":"1", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step1.yaml", "id":"0"}
