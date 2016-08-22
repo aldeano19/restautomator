@@ -1,0 +1,23 @@
+get_connections_for_get_connection:
+  details:
+    ordinal: 1
+    entry_point: /consumer/connection/get
+    # confirm_output: True
+    description: Get connections betewwn both accounts to check they are friends. | 10
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    
+
+assert:
+  isvalid:
+    key: valid
+    expected: True
+    on_error_key: message
+    silent: True
+  
+  hasfriendtcc:
+    key: [connections, [username]]
+    expected: tcc@testcasecentral.com
+    on_error_key: connections

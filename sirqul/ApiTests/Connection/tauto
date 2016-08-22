@@ -3,6 +3,15 @@
 # Eriel Marimon - August 8, 2016
 # tauto, a yaml based REST API testing tool
 
+"""
+ TODO:
+
+ 1. allow any level of key_lookup on assertions and tests
+ 2. add list support to on_error_key
+ 3. add global.yaml access to assertions 
+ 4. 
+"""
+
 
 import yaml
 import sys
@@ -126,7 +135,6 @@ class TautoAssertion(object):
 
 class Step(object):
   def __init__(self, url, headers, data, details):
-
 
     self.url = url
     self.headers = headers

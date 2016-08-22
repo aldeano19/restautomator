@@ -1,3 +1,9 @@
+1. (this was already mentioned last meeting, follow up) How to get a connectionId? 
+
+2. Can only friends form connections? Clarify relationship between 'Friend' and 'Connection'. When a friend is requested and accepted, a 'connection' appears on /consumer/connection/get, but when a connection is added with /consumer/connection/add, this connection does not appears on on /consumer/connection/get.
+
+3. On /connection/group/search all existing accounts in the database are returned even if they dont have a relation with the requesting account. what exactly is the 'keyword' filter for?
+
 x 1. Object  "/consumer/connection/group/addConnection"
         Adds a connection to a group.
         Returns a SirqulResponse with a message of success or fail
@@ -222,7 +228,7 @@ x 11. SirqulResponse  "/consumer/connection/group/details/get"
         STEPS:
           1. Create a group
           2. Get the group details
-          
+
 x 12. SirqulResponse  "/connection/group/search"
         Gets a user's private groups and default groups.
         Returns ConnectionInfoResponse on a valid response, SirqulResponse on an invalid response

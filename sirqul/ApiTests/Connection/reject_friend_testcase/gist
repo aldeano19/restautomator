@@ -1,0 +1,7 @@
+Test Reject a friend request
+
+1. Send a friend request from accountId to friendAccountId | 08 |. Also check for 'message':'Friend Request Sent'
+
+2. Reject the friend request | 05 |.  Also check for 'message':'Friend Rejected'
+
+x 3. Find out how to check if two accounts are friends.

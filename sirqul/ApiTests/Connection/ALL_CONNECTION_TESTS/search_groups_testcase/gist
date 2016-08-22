@@ -1,0 +1,3 @@
+Test Search groups
+
+1. Search groups with no filter | 12 |. Should get 20 accounts because of the  default limit = 20. This accounts have nothing to do with this user, why?? Forced Fail

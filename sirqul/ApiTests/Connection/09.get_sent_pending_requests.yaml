@@ -8,8 +8,6 @@ pending_requests:
   data:
     accountId:
       global_constants: ken_account_id
-    friendAccountId:
-      global_constants: mr_t_account_id
     
 
 assert:

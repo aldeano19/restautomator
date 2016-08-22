@@ -1,0 +1,21 @@
+get_group_details_for_remove_group:
+  details:
+    ordinal: 1
+    entry_point: /consumer/connection/group/details/get
+    read_input: create_group_for_remove_group_out
+    # confirm_output: True
+    description: Try to get the group's details and make sure it fails since was deleted. | 11
+
+  data:
+    accountId:
+      global_constants: ken_account_id
+    groupId:
+
+  dependencies:
+    - [connectionGroupId, groupId]
+    
+assert:
+  isvalid:
+    key: valid
+    expected: False
+    on_error_key: message

@@ -1,0 +1,3 @@
+Test Accept a friend request
+
+1. Send a friend request from accountId to friendAccountId | 08 |. Also check for 'message':'Friend Request Sent'
