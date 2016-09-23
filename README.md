@@ -2,8 +2,7 @@
 # RESTFUL API TESTER AND AUTOMATOR. #
 * Version 1.0
 
-A tool to write, execute and automate, fast and clean, modular test for Restful APIs. The tool allows for creation of low level steps in a Test Case.
-
+Modular RESTful API tester and automator. A tool to write, execute and automate, fast and clean, modular test for Restful APIs. Empowers QA engineers. No coding experience needed. The tool allows for creation of low level reusable steps in a Test Case. 
 
 ###example Scenario: ###
 A good way to check a "/create/user" entry point, would be to send a POST to create the user and then send another another POST to retrieve that new user to confirm its creation.
