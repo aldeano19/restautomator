@@ -1,7 +1,0 @@
-Test Accept a friend request
-
-1. Send a friend request from accountId to friendAccountId | 08 |. Also check for 'message':'Friend Request Sent'
-
-2. Accept the friend request | 05 |. Also check for 'message':'Friend Approved'
-
-x 3. Find out how to check if two accounts are friends.

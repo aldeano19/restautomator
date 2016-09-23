@@ -1,6 +1,0 @@
-Test Create a Retailer
-
-1. Create a location which returns a locationId. | 02
-	This step fails
-
-2. Get the location by locationId to confirm creation | 06

@@ -1,1 +1,0 @@
-{"name":"remove_friend_request_for_remove_friend:", "desc":"Remove a friend | 07 |. Also check for 'message':'Friend Removed'", "ordinal":"3", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step3.yaml", "id":"0"}

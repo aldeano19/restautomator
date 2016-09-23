@@ -1,1 +1,0 @@
-{"name":"add_group_connection_for_add_group_connection:", "desc":"Add the connectionId found, to the group created on Step 1 by using | 01 (/consumer/connection/group/addConnection)|", "ordinal":"4", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step4.yaml", "id":"0"}

@@ -1,0 +1,9 @@
+#!/bin/bash
+# executes one by one all the step files in the given directory, given that these files follow the naming convention step*.yaml
+for i in $1/*
+do
+  if [[ $i == *"step"* && $i == *".yaml" ]]
+  then
+    ./tauto $i
+  fi
+done

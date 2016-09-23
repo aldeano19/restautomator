@@ -1,1 +1,0 @@
-{"name":"send_friend_request_for_accept_friend:", "desc":"1. Send a friend request from accountId to friendAccountId | 08 |. Also check for 'message':'Friend Request Sent'", "ordinal":"1", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step1.yaml", "id":"0"}

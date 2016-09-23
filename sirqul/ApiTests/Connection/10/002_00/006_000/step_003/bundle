@@ -1,1 +1,0 @@
-{"name":"get_connections_for_get_connection:", "desc":"Get connections betewwn both accounts to check they are friends. | 10", "ordinal":"3", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step3.yaml", "id":"0"}

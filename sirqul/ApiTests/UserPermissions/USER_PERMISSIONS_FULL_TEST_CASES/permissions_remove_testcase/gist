@@ -1,9 +1,0 @@
-Test Permissions Leave
-
-1. add a connectionId to a permissionable object. | 1
-
-2. check permissions for connectionId were modified | ?
-
-3. user removes a connection from the permissionable object. | 3
-
-4. check connection id was removed from the permissions | ?

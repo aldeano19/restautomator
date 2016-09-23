@@ -1,7 +1,0 @@
-Test Get connections
-
-1. Send a friend request from accountId to friendAccountId | 08 |. Also check for 'message':'Friend Request Sent'
-
-2. Accept the friend request | 05 |. Also check for 'message':'Friend Approved'
-
-3. Get connections betewwn both accounts to check they are friends. | 10

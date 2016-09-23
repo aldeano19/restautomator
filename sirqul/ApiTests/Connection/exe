@@ -1,8 +1,0 @@
-#!/bin/bash
-for i in $1/*
-do
-  if [[ $i == *"step"* && $i == *".yaml" ]]
-  then
-    ./tauto $i
-  fi
-done

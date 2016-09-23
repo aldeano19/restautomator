@@ -1,0 +1,21 @@
+base_url: http://api.openweathermap.org/data/2.5
+
+check_name:
+  meta:
+    ordinal: 1 # if there are multiple steps in the same file, ordinal will decide run order
+    entry_point: /weather?APPID=40d4ec3c4e7038a5eb09c0293cdbe53d # the entry point to hit
+    description: Gets information about a city using its coordinates. Confirm its name to be 'Hollywood' # A description about what we are doing here
+    confirm_output: True # For debug purposes, will shouw the request's response if set to true.
+
+  data: # sets the data to by passed in the post request
+    lat: 34.1
+    lon: -118.33
+
+assert:
+  valid_response:
+    key: cod
+    expected: 200
+  
+  is_hollywood:
+    key: name
+    expected: Hollywood

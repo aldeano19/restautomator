@@ -1,9 +1,0 @@
-Test Remove connection from group
-
-** Cannot test untill the issue of adding a connection is solved. Force Fail for now
-
-1. Create a group with a friendAccountId owned by accountId | 04 |.
-
-2. Get that connectionId.
-
-3. Remove that connection id.

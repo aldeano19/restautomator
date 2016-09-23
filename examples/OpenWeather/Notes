@@ -1,0 +1,13 @@
+Test Curls
+==========
+
+curl -i -X POST \
+-d "q=Hollywood" \
+http://api.openweathermap.org/data/2.5/weather?APPID=40d4ec3c4e7038a5eb09c0293cdbe53d
+
+-----
+
+curl -i -X POST \
+-d "lat=34.1" \
+-d "lon=-118.33" \
+http://api.openweathermap.org/data/2.5/weather?APPID=40d4ec3c4e7038a5eb09c0293cdbe53d

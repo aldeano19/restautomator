@@ -1,1 +1,0 @@
-{"name":"accept_friend_request_for_remove_friend:", "desc":"Accept the friend request | 05 |. Also check for 'message':'Friend Approved'", "ordinal":"2", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step2.yaml", "id":"0"}

@@ -1,1 +1,0 @@
-{"name":"create_retailer_for_delete_retailer:", "desc":"Create a retailer which returns a retailerId. | 01", "ordinal":"1", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step1.yaml", "id":"0"}

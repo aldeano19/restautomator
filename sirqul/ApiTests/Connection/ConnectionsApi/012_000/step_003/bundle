@@ -1,1 +1,0 @@
-{"name":"remove_group_for_remove_group:", "desc":"Remove the group. | 14", "ordinal":"3", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step3.yaml", "id":"0"}

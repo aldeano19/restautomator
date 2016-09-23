@@ -1,1 +1,0 @@
-{"name":"step title", "desc":"step description", "ordinal":"0", "abort":"0", "fail_type":"Error", "execute":"python hello_world.py", "id":"260"}

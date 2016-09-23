@@ -1,7 +1,0 @@
-Test Accept a friend request
-
-1. Send a friend request from accountId to friendAccountId. | 08
-
-2. Accept the friend request. | 05
-
-3. Check accountId is friends with friendAccountId. ???

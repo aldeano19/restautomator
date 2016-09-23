@@ -1,1 +1,0 @@
-{"name":"permission_leave_for_permission_leave:", "desc":"user leaves the permissionable object", "ordinal":"3", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step3.yaml", "id":"0"}

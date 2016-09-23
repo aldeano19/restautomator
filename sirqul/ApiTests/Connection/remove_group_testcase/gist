@@ -1,9 +1,0 @@
-Test Create a group
-
-1. Create a group. | 04
-
-2. Get a group's details to confirm creation. | 11
-
-3. Remove the group. | 14
-
-4. Try to get the group's details and make sure it fails since was deleted. | 11

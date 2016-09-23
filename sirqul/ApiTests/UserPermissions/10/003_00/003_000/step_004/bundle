@@ -1,1 +1,0 @@
-{"name":"search_permission_for_permissions_leave:", "desc":"IMPORTANT; For some reason this entry point was removed from the documentation. Search for permissionable object for a connectionId and confirm new permissions are set.", "ordinal":"4", "abort":"0", "fail_type":"Error", "execute":"python tauto.py step4.yaml", "id":"0"}
